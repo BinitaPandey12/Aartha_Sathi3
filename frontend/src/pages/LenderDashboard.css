@@ -1,0 +1,547 @@
+body,
+.lender-dashboard-root {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: #d6dff3;
+  color: #23223a;
+}
+.lender-dashboard-root {
+  max-width: 1800px;
+  margin: 0 auto 36px auto;
+  padding: 0 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-header-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.1);
+  padding: 32px 36px 32px 32px;
+  margin-bottom: 32px;
+  gap: 32px;
+  margin-top: 28px;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.lender-logo {
+  height: 56px;
+  width: 56px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+  margin-right: 0;
+}
+.lender-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #23223a;
+  margin-bottom: 2px;
+}
+.lender-desc {
+  font-size: 1.05rem;
+  color: #6b7280;
+}
+.header-right {
+  display: flex;
+  gap: 18px;
+}
+.score-card {
+  min-width: 160px;
+  min-height: 90px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px 0 rgba(80, 80, 180, 0.07);
+  padding: 18px 24px 14px 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.trust-card {
+  background: #758ec4;
+  color: #fff;
+}
+.safety-card {
+  background: linear-gradient(90deg, #d68eb4 0%, #b0a1dd 100%);
+  color: #fff;
+}
+.score-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+  opacity: 0.95;
+}
+.score-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.score-desc {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+.dashboard-main-columns {
+  display: flex;
+  gap: 32px;
+}
+.dashboard-main {
+  flex: 2.5;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.dashboard-sidebar {
+  flex: 1.1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dashboard-card,
+.sidebar-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.1);
+  padding: 28px 28px 22px 28px;
+  margin-bottom: 28px;
+}
+.dashboard-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+.sidebar-card {
+  padding: 28px 28px 22px 28px;
+}
+.section-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #23223a;
+  margin-bottom: 8px;
+}
+.section-desc {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+.lender-table-wrapper {
+  background: #f6f7fb;
+  border-radius: 18px;
+  padding: 0;
+  margin-top: 18px;
+  margin-bottom: 0;
+  overflow-x: auto;
+  box-shadow: none;
+  width: 100%;
+}
+.lender-table {
+  width: 100% !important;
+  min-width: 700px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  font-size: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: none;
+  table-layout: fixed;
+}
+.lender-table th,
+.lender-table td {
+  width: auto;
+}
+.lender-table th {
+  background: #f6f7fb;
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 1.01rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+.lender-table td:last-child {
+  width: 1%;
+  text-align: right;
+}
+.lender-table tr:last-child td {
+  border-bottom: none;
+}
+.lender-table tbody tr:hover {
+  background: #f3f4f6;
+  transition: background 0.18s;
+}
+.make-offer-btn {
+  background: #a78bfa;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+  min-width: 140px;
+  display: inline-block;
+  white-space: nowrap;
+}
+.make-offer-btn:hover {
+  background: #7c3aed;
+}
+.pending-loan-row,
+.active-loan-row {
+  background: #f6f7fb;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lender-table tr {
+  background: transparent;
+}
+.lender-table tr td {
+  vertical-align: middle;
+}
+.active-loan-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.active-loan-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.view-contract-btn {
+  background: #fff;
+  color: #7c3aed;
+  border: 2px solid #a78bfa;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.view-contract-btn:hover {
+  background: #a78bfa;
+  color: #fff;
+}
+.loan-badge {
+  display: inline-block;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 7px 18px;
+  margin-left: 8px;
+  letter-spacing: 0.01em;
+}
+.loan-badge.default {
+  background: #fee2e2;
+  color: #d32f2f;
+}
+.loan-badge.escrow {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+.create-loan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+.create-loan-form input,
+.create-loan-form textarea {
+  padding: 12px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  width: 100%;
+  max-width: 340px;
+}
+.create-loan-form textarea {
+  min-height: 60px;
+}
+.post-loan-btn {
+  background: linear-gradient(90deg, #a78bfa 60%, #7c3aed 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.18s;
+}
+.post-loan-btn:hover {
+  background: linear-gradient(90deg, #7c3aed 60%, #a78bfa 100%);
+}
+@media (max-width: 1100px) {
+  .dashboard-main-columns {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .dashboard-sidebar {
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .dashboard-header-card,
+  .dashboard-card,
+  .sidebar-card {
+    padding: 10px 2px 10px 2px;
+    border-radius: 10px;
+  }
+  .dashboard-header-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .header-right {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .lender-dashboard-root {
+    padding: 0 4px 24px 4px;
+  }
+  .pending-loan-row,
+  .active-loan-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 6px;
+  }
+}
+@media (max-width: 600px) {
+  .lender-navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .navbar-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .navbar-logout-btn {
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 0;
+  }
+  .dashboard-header-card,
+  .dashboard-card,
+  .sidebar-card {
+    padding: 10px 2px 10px 2px;
+    border-radius: 10px;
+  }
+  .dashboard-main-columns {
+    gap: 12px;
+  }
+  .dashboard-main,
+  .dashboard-sidebar {
+    gap: 12px;
+  }
+  .lender-table th,
+  .lender-table td {
+    padding: 10px 4px;
+    font-size: 0.95rem;
+  }
+  .active-loan-actions {
+    gap: 8px;
+  }
+  .create-loan-form input,
+  .create-loan-form textarea {
+    max-width: 100%;
+    font-size: 0.98rem;
+  }
+}
+.lender-navbar {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  height: 60px;
+  font-size: 1.18rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.07);
+  letter-spacing: 0.01em;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.navbar-logout-btn {
+  background: #fff;
+  color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 1px 4px 0 rgba(44, 62, 80, 0.07);
+}
+.navbar-logout-btn:hover {
+  background: #a78bfa;
+  color: #fff;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 62, 80, 0.18);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.18);
+  padding: 32px 32px 24px 32px;
+  min-width: 320px;
+  max-width: 95vw;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.modal-content {
+  font-size: 1.05rem;
+  color: #23223a;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 62, 80, 0.1);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.18);
+  padding: 28px 36px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #23223a;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .modal-card {
+    padding: 16px 6px 16px 6px;
+    min-width: 0;
+    width: 98vw;
+  }
+  .popup-card {
+    padding: 18px 8px;
+    font-size: 1rem;
+  }
+}
+.lender-dashboard-root > .dashboard-card:last-child {
+  margin-bottom: 0;
+}
+
+/* Table row spacing */
+.lender-table table tr {
+  height: 64px; /* Increase row height */
+}
+
+.lender-table table td,
+.lender-table table th {
+  padding: 16px 18px; /* More padding for cells */
+  vertical-align: middle;
+}
+
+/* Add space between rows visually */
+.lender-table table tbody tr {
+  border-bottom: 1.5px solid #f0f1f7;
+}
+
+/* Table header style */
+.lender-table table th {
+  background: #f7f8fc;
+  color: #555;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-bottom: 2px solid #e3eaf6;
+}
+
+/* Action button style */
+.make-offer-btn {
+  padding: 12px 28px;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  margin: 0 0 0 8px;
+  background: #b9a4f4;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  transition: background 0.2s;
+}
+
+.make-offer-btn:hover {
+  background: #a48be0;
+}
+
+/* Add some space above and below the table */
+.lender-table-wrapper {
+  margin: 18px 0 18px 0;
+}
+
+/* Optional: Card-like effect for table container */
+.lender-table {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(80, 80, 120, 0.07);
+  overflow: hidden;
+}
+.view-request-btn {
+  background: #a78bfa;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.view-request-btn:hover {
+  background: #7c3aed;
+}
