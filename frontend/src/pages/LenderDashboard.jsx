@@ -23,14 +23,11 @@ export default function LenderDashboard() {
   const userData = JSON.parse(localStorage.getItem("user"));
   const userName = userData?.name || "User";
   const handleLogout = () => {
-  
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-
     navigate("/");
   };
-
 
   useEffect(() => {
     const fetchBorrowerRequests = async () => {
@@ -38,7 +35,6 @@ export default function LenderDashboard() {
         const token = localStorage.getItem("token");
         const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
-       
         console.log("=== DEBUG INFO ===");
         console.log("Token exists:", !!token);
         console.log("Token length:", token ? token.length : 0);
@@ -55,7 +51,6 @@ export default function LenderDashboard() {
           throw new Error("No authentication token found");
         }
 
-        
         if (userData.role !== "LENDER") {
           console.log("User role is:", userData.role);
           setPopup({
@@ -93,7 +88,6 @@ export default function LenderDashboard() {
         console.log("Borrower requests received:", requests);
         setBorrowerRequests(requests);
 
-      
         try {
           const testResponse = await fetch(
             "http://localhost:8080/api/loan-requests/loan-requests/lender-dashboard",
@@ -107,7 +101,7 @@ export default function LenderDashboard() {
           if (testResponse.ok) {
             const testData = await testResponse.json();
             console.log("Original endpoint data:", testData);
-           
+
             setBorrowerRequests(testData);
           } else {
             const errorText = await testResponse.text();
@@ -125,7 +119,6 @@ export default function LenderDashboard() {
     fetchBorrowerRequests();
   }, []);
 
- 
   useEffect(() => {
     const fetchPostedLoanOffers = async () => {
       try {
@@ -134,7 +127,7 @@ export default function LenderDashboard() {
           "http://localhost:8080/api/loan-offers/pending",
           {
             headers: {
-             Authorization:`Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -148,7 +141,6 @@ export default function LenderDashboard() {
     fetchPostedLoanOffers();
   }, []);
 
-  
   useEffect(() => {
     const fetchPendingPayments = async () => {
       try {
@@ -195,7 +187,6 @@ export default function LenderDashboard() {
 
   const handlePostLoanOffer = async () => {
     try {
-      
       if (
         !newLoanForm.amount ||
         !newLoanForm.minInterest ||
@@ -205,7 +196,6 @@ export default function LenderDashboard() {
         return;
       }
 
-    
       if (!/^\d{4}-\d{2}-\d{2}$/.test(newLoanForm.repaymentDate)) {
         setPopup({ show: true, message: "Use YYYY-MM-DD date format" });
         return;
@@ -217,15 +207,14 @@ export default function LenderDashboard() {
         throw new Error("Please login again - session expired");
       }
 
-    
       const loanOfferData = {
         amount: parseFloat(newLoanForm.amount),
-        interestRate: parseFloat(newLoanForm.minInterest), 
+        interestRate: parseFloat(newLoanForm.minInterest),
         repaymentDate: newLoanForm.repaymentDate,
         description: newLoanForm.description,
       };
 
-      console.log("Sending:", loanOfferData); 
+      console.log("Sending:", loanOfferData);
 
       const response = await fetch("http://localhost:8080/api/loan-offers", {
         method: "POST",
@@ -245,14 +234,12 @@ export default function LenderDashboard() {
         throw new Error(errorData.message || "Failed to create offer");
       }
 
-      
       const result = await response.json();
       setPopup({
         show: true,
-        message:` Offer created! ID: ${result.id} | Status: ${result.status}`,
+        message: ` Offer created! ID: ${result.id} | Status: ${result.status}`,
       });
 
-      
       setPostedLoanOffers((prev) => [
         ...prev,
         {
@@ -266,7 +253,6 @@ export default function LenderDashboard() {
         },
       ]);
 
-    
       setNewLoanForm({
         amount: "",
         minInterest: "",
@@ -285,12 +271,11 @@ export default function LenderDashboard() {
 
     setTimeout(() => setPopup({ show: false, message: "" }), 3000);
   };
-  
+
   const handleAcceptOffer = async (offer) => {
     try {
       const token = localStorage.getItem("token");
 
-  
       const response = await fetch(
         "http://localhost:8080/api/loan-requests/lender-dashboard/${offer.id}",
         {
@@ -338,7 +323,6 @@ export default function LenderDashboard() {
       console.log("Token exists:", !!token);
       console.log("===================");
 
-
       const requestId =
         selectedOffer.id ||
         selectedOffer.requestId ||
@@ -354,7 +338,6 @@ export default function LenderDashboard() {
 
       console.log("Using request ID:", requestId);
 
-      
       const response = await fetch(
         "http://localhost:8080/api/loan-requests/lender-dashboard/${requestId}/accept",
         {
@@ -375,7 +358,6 @@ export default function LenderDashboard() {
         throw new Error("Loan request acceptance failed!");
       }
 
-      
       setBorrowerRequests(
         borrowerRequests.filter((req) => req.id !== requestId)
       );
@@ -414,14 +396,13 @@ export default function LenderDashboard() {
         throw new Error("Please login again - session expired");
       }
 
-    
       const response = await fetch(
-       " http://localhost:8080/api/loan-offers/${loanId}/mark-paid",
+        " http://localhost:8080/api/loan-offers/${loanId}/mark-paid",
         {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", 
+            "Content-Type": "application/json",
           },
         }
       );
@@ -431,13 +412,12 @@ export default function LenderDashboard() {
         throw new Error(errorData.message || "Failed to process payment");
       }
 
-      
       setPopup({
         show: true,
-        message: "Payment completed! ₹10 is deducted as transfer fee",
+        message:
+          "₹10 is deducted as transfer fee. Payment is now currently held in escrow",
       });
 
-      
       setTimeout(() => {
         setPendingPayments(
           pendingPayments.filter((loan) => loan.id !== loanId)
@@ -462,7 +442,7 @@ export default function LenderDashboard() {
     <>
       <nav className="lender-navbar">
         <div className="navbar-title">Lender Dashboard</div>
-        
+
         <button className="navbar-logout-btn" onClick={handleLogout}>
           Logout
         </button>
@@ -536,7 +516,6 @@ export default function LenderDashboard() {
                               gap: 8,
                             }}
                           >
-                        
                             <svg
                               width="28"
                               height="28"
@@ -887,7 +866,7 @@ export default function LenderDashboard() {
             />
             <input
               type="text"
-              placeholder="Repayment Date (YYYY-MM-DD)" 
+              placeholder="Repayment Date (YYYY-MM-DD)"
               value={newLoanForm.repaymentDate}
               onChange={(e) =>
                 setNewLoanForm({
@@ -916,7 +895,7 @@ export default function LenderDashboard() {
             </button>
           </div>
         </div>
-        
+
         {showAcceptModal && selectedOffer && (
           <div className="modal-overlay">
             <div className="modal-card">
@@ -979,13 +958,13 @@ export default function LenderDashboard() {
             </div>
           </div>
         )}
-        
+
         {popup.show && (
           <div className="popup-overlay">
             <div className="popup-card">{popup.message}</div>
           </div>
         )}
-        
+
         {borrowerRedFlag && (
           <div className="popup-overlay">
             <div
