@@ -39,7 +39,7 @@ const LoginPage = () => {
       });
        const userData = await response.json();
 
-    // Store user data (including name)
+    
     localStorage.setItem("user", JSON.stringify({
       name: userData.name,
       email: userData.email,
@@ -62,15 +62,14 @@ const LoginPage = () => {
         return;
       }
 
-      // Store token
       localStorage.setItem("token", userData.token);
 
 
-      // Store user info excluding token
+      
 const { token, ...userWithoutToken } = userData;
 localStorage.setItem("user", JSON.stringify(userWithoutToken));
 
-      // Determine user role (case-insensitive)
+    
       const role = (userData.role || "").toLowerCase();
 
       if (role === "lender") {
@@ -155,7 +154,7 @@ localStorage.setItem("user", JSON.stringify(userWithoutToken));
         </form>
       </div>
 
-      {/* Signup Options */}
+    
       <div className="signup-options">
         <h3>New to AarthaSathi?</h3>
         <p>Choose how you want to participate:</p>

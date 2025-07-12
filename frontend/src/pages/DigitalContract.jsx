@@ -8,19 +8,19 @@ const DigitalContract = ({
   onClose,
 }) => {
   const [accepted, setAccepted] = useState(false);
-  const safetyPoolPercentage = 1; // 1%
+  const safetyPoolPercentage = 1; 
   const safetyPoolAmount = (loanDetails.amount * safetyPoolPercentage) / 100;
   const receivableAmount = loanDetails.amount - safetyPoolAmount;
   const repaymentAmount =
     loanDetails.amount + (loanDetails.amount * loanDetails.interestRate) / 100;
 
-  // Stable contract ID for this render
+  
   const contractId = useMemo(
-    () => CNTR-${Math.floor(Math.random() * 1000000)},
+    () => `CNTR-${Math.floor(Math.random() * 1000000)}`,
     []
   );
 
-  // Responsive layout
+  
   const isMobile = window.innerWidth < 768;
 
   return (

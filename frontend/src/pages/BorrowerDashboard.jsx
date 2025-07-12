@@ -6,7 +6,6 @@ import DigitalContract from "./DigitalContract";
 
 export default function BorrowerDashboard() {
   const navigate = useNavigate();
-  // Replace initialLenderOffers with empty array
   const [lenderOffers, setLenderOffers] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [activeLoans, setActiveLoans] = useState([]);
@@ -14,7 +13,7 @@ export default function BorrowerDashboard() {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [popup, setPopup] = useState({ show: false, message: "" });
   const [postedLoans, setPostedLoans] = useState([]);
-  // Add loading state
+  
   const [isLoadingOffers, setIsLoadingOffers] = useState(false);
   const [newLoanForm, setNewLoanForm] = useState({
     amount: "",
@@ -22,14 +21,11 @@ export default function BorrowerDashboard() {
     repaymentDate: "",
     description: "",
   });
-  // Add digital contract state variables
+  
   const [showContract, setShowContract] = useState(false);
   const [contractOffer, setContractOffer] = useState(null);
   const [acceptedContracts, setAcceptedContracts] = useState({});
-  // Simulate red flag state (for demo, use localStorage or a prop)
-  // Remove redFlag state, useEffect, and all red flag/clear red flag button logic
 
-  // Fetch available loan offers from API
   useEffect(() => {
     const fetchLoanOffers = async () => {
       setIsLoadingOffers(true);
@@ -58,7 +54,7 @@ export default function BorrowerDashboard() {
     fetchLoanOffers();
   }, []);
 
-  // Add this useEffect near your other useEffect hooks
+  
   useEffect(() => {
     const fetchPendingPaymentLoans = async () => {
       try {
@@ -97,7 +93,7 @@ export default function BorrowerDashboard() {
     fetchPendingPaymentLoans();
   }, []);
 
-  // Fetch active loans for borrower on mount
+  
   useEffect(() => {
     const fetchActiveLoans = async () => {
       try {
@@ -120,7 +116,7 @@ export default function BorrowerDashboard() {
     fetchActiveLoans();
   }, []);
 
-  // Fetch detailed offer when clicked
+  
   const fetchOfferDetails = async (offerId) => {
     try {
       const token = localStorage.getItem("token");
@@ -153,16 +149,16 @@ export default function BorrowerDashboard() {
   const userName = userData?.name || "User";
 
   const handleLogout = () => {
-    // Clear user data from localStorage
+    
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    // Redirect to landing page
+  
     navigate("/");
   };
   const createLoanRequest = async () => {
     try {
-      // Validation
+      
       if (
         !newLoanForm.amount ||
         !newLoanForm.maxInterestRate ||
@@ -212,7 +208,7 @@ export default function BorrowerDashboard() {
         },
       ]);
 
-      // Clear form
+
       setNewLoanForm({
         amount: "",
         maxInterestRate: "",
@@ -232,15 +228,15 @@ export default function BorrowerDashboard() {
     setTimeout(() => setPopup({ show: false, message: "" }), 3000);
   };
 
-  // View Offer Modal logic
+  
 
   const closeOffer = () => {
     setShowOffer(false);
     setSelectedOffer(null);
   };
-  // Accept Offer logic
+  
   const acceptOffer = async () => {
-    // Check if digital contract has been accepted
+  
     if (!acceptedContracts[selectedOffer.id]) {
       setPopup({
         show: true,
@@ -254,7 +250,7 @@ export default function BorrowerDashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      // Show processing popup
+    
       setPopup({
         show: true,
         message: "Accepting the loan offer...",
@@ -270,10 +266,10 @@ export default function BorrowerDashboard() {
 
       if (!response.ok) throw new Error("Offer acceptance failed!");
 
-      // Update all states
+    
       setPostedLoans(
         postedLoans.filter(
-          (loan) => loan.id !== selectedOffer.loanRequestId // Remove from posted loans
+          (loan) => loan.id !== selectedOffer.loanRequestId 
         )
       );
 
@@ -304,9 +300,7 @@ export default function BorrowerDashboard() {
       setTimeout(() => setPopup({ show: false }), 3000);
     }
   };
-  // Simulate lender payment for demo
-
-  // Update your form input to use maxInterestRate
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewLoanForm((prev) => ({
@@ -317,7 +311,7 @@ export default function BorrowerDashboard() {
 
   return (
     <>
-      {/* Navbar */}
+
       <nav className="borrower-navbar">
         <div className="navbar-title">Borrower Dashboard</div>
         <button className="navbar-logout-btn" onClick={handleLogout}>
@@ -325,7 +319,6 @@ export default function BorrowerDashboard() {
         </button>
       </nav>
       <div className="borrower-dashboard-root">
-        {/* Header */}
         <div className="dashboard-header-card">
           <div className="header-left">
             <img src={logo} alt="AarthaSathi Logo" className="borrower-logo" />
@@ -348,7 +341,7 @@ export default function BorrowerDashboard() {
           </div>
         </div>
 
-        {/* Loan Offers from Lenders */}
+        {/* Loan Offers from Lenders Section */}
         <section className="borrower-section">
           <div className="section-title">Loan Offers from Lenders</div>
           <div className="section-desc">
@@ -449,7 +442,7 @@ export default function BorrowerDashboard() {
           </div>
         </section>
 
-        {/* Posted Loan Requests */}
+        {/* posted loan section */}
         <section className="borrower-section posted-section">
           <div className="section-title">Posted Loan Requests</div>
           <div className="section-desc">
@@ -486,8 +479,7 @@ export default function BorrowerDashboard() {
           </div>
         </section>
 
-        {/* Pending Loans */}
-        {/* Pending Loans */}
+        {/* pending loan section */}
         <section className="borrower-section pending-section smart-pending-section">
           <div className="section-title">Awaiting Payment</div>
           <div className="section-desc">
@@ -556,7 +548,7 @@ export default function BorrowerDashboard() {
             )}
           </div>
         </section>
-        {/* My Active Loans - Left Side */}
+        {/* My Active Loans Section */}
         <section className="borrower-section active-loans-section smart-active-section">
           <div className="section-title">
             <span className="active-dot"></span>My Active Loans
@@ -669,7 +661,7 @@ export default function BorrowerDashboard() {
             )}
           </div>
         </section>
-        {/* Create New Loan Offer - Right Side */}
+        {/* Create New Loan Offer*/}
         <section className="borrower-section create-loan-section smart-offer-section">
           <div className="section-title">Create New Loan Request</div>
           <div className="create-loan-form">
@@ -714,7 +706,7 @@ export default function BorrowerDashboard() {
           </div>
         </section>
 
-        {/* Offer Modal */}
+        
         {showOffer && selectedOffer && (
           <div className="modal-overlay">
             <div className="modal-card">
@@ -777,7 +769,6 @@ export default function BorrowerDashboard() {
             </div>
           </div>
         )}
-        {/* Popup */}
         {popup.show && (
           <div className="popup-overlay">
             <div className="popup-card">{popup.message}</div>

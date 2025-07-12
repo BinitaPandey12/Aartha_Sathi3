@@ -80,7 +80,6 @@
   font-weight: 500;
 }
 
-/* Signup Options */
 .signup-options {
   background: white;
   padding: 2rem;
@@ -159,7 +158,6 @@
   opacity: 0.8;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
@@ -172,7 +170,6 @@
   }
 }
 
-/* Password Input Container */
 .password-input-container {
   position: relative;
   display: flex;

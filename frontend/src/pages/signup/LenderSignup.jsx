@@ -64,7 +64,7 @@ const LenderSignup = () => {
         setLoading(false);
         return;
       }
-      // Success - show popup and redirect to login
+      
       setShowSuccess(true);
       setLoading(false);
       setTimeout(() => {
@@ -90,7 +90,7 @@ const LenderSignup = () => {
       {showSuccess && (
         <div className="success-popup">
           <div className="success-content">
-            <h3>✅ Signup Successful!</h3>
+            <h3>Signup Successful!</h3>
             <p>Your lender account has been created successfully.</p>
             <p>Redirecting to login...</p>
           </div>

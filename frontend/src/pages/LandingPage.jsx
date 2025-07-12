@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-// Import your images
 import image1 from "../assets/women.jpg";
 import image2 from "../assets/women1.jpg";
 import image3 from "../assets/women2.jpg";
@@ -47,7 +46,6 @@ const LandingPage = () => {
 
   return (
     <div className="landing-root">
-      {/* Navigation Bar */}
       <nav className="nav-container" style={{backdropFilter: 'blur(8px)', background: 'rgba(255,255,255,0.85)', borderBottom: '1.5px solid #ecebfa'}}>
         <div className="logo-container">
           <img
@@ -74,9 +72,9 @@ const LandingPage = () => {
         </div>
       </nav>
 
-      {/* Hero Section with Flex Layout */}
+    
       <section className="landing-hero-flex">
-        {/* Left: Hero Content */}
+        
         <div className="hero-content-flex">
           <h1>Empowering Women<br />Through Microloans</h1>
           <p>Join AarthaSathi to support or receive financial assistance in a safe, women-only community built on trust and dignity.</p>
@@ -85,7 +83,7 @@ const LandingPage = () => {
             <a href="/borrow" className="landing-cta-btn">I need a loan →</a>
           </div>
         </div>
-        {/* Right: Image Carousel */}
+        
         <div className="image-carousel-flex">
           <div className="carousel-image-wrapper">
             {images.map((image, index) => (
@@ -98,7 +96,7 @@ const LandingPage = () => {
     boxShadow: index === currentImageIndex ? '0 4px 32px 0 rgba(124,58,237,0.13)' : 'none',
     opacity: index === currentImageIndex ? 1 : 0,
     transition: 'opacity 0.7s',
-      height: 480,                // ❌ REMOVE THIS LINE
+      height: 480,               
     width: 600,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -124,7 +122,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+    
       <div className="landing-section-title">Why Choose AarthaSathi?</div>
       <section className="landing-features">
         {features.map((feature, idx) => (

@@ -476,23 +476,23 @@ body,
   margin-bottom: 0;
 }
 
-/* Table row spacing */
+
 .lender-table table tr {
-  height: 64px; /* Increase row height */
+  height: 64px; 
 }
 
 .lender-table table td,
 .lender-table table th {
-  padding: 16px 18px; /* More padding for cells */
+  padding: 16px 18px; 
   vertical-align: middle;
 }
 
-/* Add space between rows visually */
+
 .lender-table table tbody tr {
   border-bottom: 1.5px solid #f0f1f7;
 }
 
-/* Table header style */
+
 .lender-table table th {
   background: #f7f8fc;
   color: #555;
@@ -501,7 +501,7 @@ body,
   border-bottom: 2px solid #e3eaf6;
 }
 
-/* Action button style */
+
 .make-offer-btn {
   padding: 12px 28px;
   font-size: 1.05rem;
@@ -518,12 +518,12 @@ body,
   background: #a48be0;
 }
 
-/* Add some space above and below the table */
+
 .lender-table-wrapper {
   margin: 18px 0 18px 0;
 }
 
-/* Optional: Card-like effect for table container */
+
 .lender-table {
   background: #fff;
   border-radius: 18px;

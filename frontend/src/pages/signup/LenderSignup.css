@@ -168,7 +168,7 @@
   color: #3730a3;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .lender-signup-form {
     padding: 30px 20px;
@@ -184,7 +184,7 @@
   }
 }
 
-/* Success Popup Styles */
+
 .success-popup {
   position: fixed;
   top: 0;

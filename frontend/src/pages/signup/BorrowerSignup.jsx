@@ -90,7 +90,7 @@ const BorrowerSignup = () => {
       {showSuccess && (
         <div className="success-popup">
           <div className="success-content">
-            <h3>✅ Signup Successful!</h3>
+            <h3>Signup Successful!</h3>
             <p>Your borrower account has been created successfully.</p>
             <p>Redirecting to login...</p>
           </div>

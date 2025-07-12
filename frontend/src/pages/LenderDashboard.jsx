@@ -23,22 +23,22 @@ export default function LenderDashboard() {
   const userData = JSON.parse(localStorage.getItem("user"));
   const userName = userData?.name || "User";
   const handleLogout = () => {
-    // Clear user data from localStorage
+  
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    // Redirect to landing page
+
     navigate("/");
   };
 
-  // Fetch loan requests from borrowers for lender dashboard
+
   useEffect(() => {
     const fetchBorrowerRequests = async () => {
       try {
         const token = localStorage.getItem("token");
         const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
-        // Debug authentication info
+       
         console.log("=== DEBUG INFO ===");
         console.log("Token exists:", !!token);
         console.log("Token length:", token ? token.length : 0);
@@ -55,7 +55,7 @@ export default function LenderDashboard() {
           throw new Error("No authentication token found");
         }
 
-        // Check if user is logged in as LENDER
+        
         if (userData.role !== "LENDER") {
           console.log("User role is:", userData.role);
           setPopup({
@@ -65,12 +65,11 @@ export default function LenderDashboard() {
           return;
         }
 
-        // Try the working endpoint first to test authentication
         const response = await fetch(
           "http://localhost:8080/api/loan-requests/pending",
           {
             headers: {
-              Authorization: Bearer ${token},
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -86,7 +85,7 @@ export default function LenderDashboard() {
             Object.fromEntries(response.headers.entries())
           );
           throw new Error(
-            Failed to fetch borrower requests: ${response.status} - ${errorText}
+            `Failed to fetch borrower requests:${response.status} - ${errorText}`
           );
         }
 
@@ -94,13 +93,13 @@ export default function LenderDashboard() {
         console.log("Borrower requests received:", requests);
         setBorrowerRequests(requests);
 
-        // Test the original endpoint
+      
         try {
           const testResponse = await fetch(
             "http://localhost:8080/api/loan-requests/loan-requests/lender-dashboard",
             {
               headers: {
-                Authorization: Bearer ${token},
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -108,7 +107,7 @@ export default function LenderDashboard() {
           if (testResponse.ok) {
             const testData = await testResponse.json();
             console.log("Original endpoint data:", testData);
-            // If it works, use the original data
+           
             setBorrowerRequests(testData);
           } else {
             const errorText = await testResponse.text();
@@ -126,7 +125,7 @@ export default function LenderDashboard() {
     fetchBorrowerRequests();
   }, []);
 
-  // Fetch posted loan offers on mount
+ 
   useEffect(() => {
     const fetchPostedLoanOffers = async () => {
       try {
@@ -135,7 +134,7 @@ export default function LenderDashboard() {
           "http://localhost:8080/api/loan-offers/pending",
           {
             headers: {
-              Authorization: Bearer ${token},
+             Authorization:`Bearer ${token}`,
             },
           }
         );
@@ -149,7 +148,7 @@ export default function LenderDashboard() {
     fetchPostedLoanOffers();
   }, []);
 
-  // Fetch pending payments on mount
+  
   useEffect(() => {
     const fetchPendingPayments = async () => {
       try {
@@ -158,7 +157,7 @@ export default function LenderDashboard() {
           "http://localhost:8080/api/loan-offers/awaiting-payment",
           {
             headers: {
-              Authorization: Bearer ${token},
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -172,7 +171,6 @@ export default function LenderDashboard() {
     fetchPendingPayments();
   }, []);
 
-  // Fetch active loans for lender on mount
   useEffect(() => {
     const fetchActiveLoans = async () => {
       try {
@@ -181,7 +179,7 @@ export default function LenderDashboard() {
           "http://localhost:8080/api/loan-offers/active-loans/lender",
           {
             headers: {
-              Authorization: Bearer ${token},
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -197,7 +195,7 @@ export default function LenderDashboard() {
 
   const handlePostLoanOffer = async () => {
     try {
-      // Add validation at the start
+      
       if (
         !newLoanForm.amount ||
         !newLoanForm.minInterest ||
@@ -207,7 +205,7 @@ export default function LenderDashboard() {
         return;
       }
 
-      // Ensure proper date format (optional)
+    
       if (!/^\d{4}-\d{2}-\d{2}$/.test(newLoanForm.repaymentDate)) {
         setPopup({ show: true, message: "Use YYYY-MM-DD date format" });
         return;
@@ -219,21 +217,21 @@ export default function LenderDashboard() {
         throw new Error("Please login again - session expired");
       }
 
-      // Match the exact backend expected format
+    
       const loanOfferData = {
         amount: parseFloat(newLoanForm.amount),
-        interestRate: parseFloat(newLoanForm.minInterest), // Changed from minInterest to interestRate
+        interestRate: parseFloat(newLoanForm.minInterest), 
         repaymentDate: newLoanForm.repaymentDate,
         description: newLoanForm.description,
       };
 
-      console.log("Sending:", loanOfferData); // Debug log
+      console.log("Sending:", loanOfferData); 
 
       const response = await fetch("http://localhost:8080/api/loan-offers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: Bearer ${token},
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(loanOfferData),
       });
@@ -247,14 +245,14 @@ export default function LenderDashboard() {
         throw new Error(errorData.message || "Failed to create offer");
       }
 
-      // Success - show the created loan details
+      
       const result = await response.json();
       setPopup({
         show: true,
-        message: Offer created! ID: ${result.id} | Status: ${result.status},
+        message:` Offer created! ID: ${result.id} | Status: ${result.status}`,
       });
 
-      // Add to postedLoanOffers
+      
       setPostedLoanOffers((prev) => [
         ...prev,
         {
@@ -268,7 +266,7 @@ export default function LenderDashboard() {
         },
       ]);
 
-      // Clear the form
+    
       setNewLoanForm({
         amount: "",
         minInterest: "",
@@ -287,17 +285,17 @@ export default function LenderDashboard() {
 
     setTimeout(() => setPopup({ show: false, message: "" }), 3000);
   };
-  // Accept Offer Modal logic
+  
   const handleAcceptOffer = async (offer) => {
     try {
       const token = localStorage.getItem("token");
 
-      // Fetch detailed loan request information
+  
       const response = await fetch(
-        http://localhost:8080/api/loan-requests/lender-dashboard/${offer.id},
+        "http://localhost:8080/api/loan-requests/lender-dashboard/${offer.id}",
         {
           headers: {
-            Authorization: Bearer ${token},
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -340,7 +338,7 @@ export default function LenderDashboard() {
       console.log("Token exists:", !!token);
       console.log("===================");
 
-      // Check if we have a valid ID - try different possible field names
+
       const requestId =
         selectedOffer.id ||
         selectedOffer.requestId ||
@@ -356,13 +354,13 @@ export default function LenderDashboard() {
 
       console.log("Using request ID:", requestId);
 
-      // Call the accept API endpoint - following the same pattern as BorrowerDashboard
+      
       const response = await fetch(
-        http://localhost:8080/api/loan-requests/lender-dashboard/${requestId}/accept,
+        "http://localhost:8080/api/loan-requests/lender-dashboard/${requestId}/accept",
         {
           method: "PUT",
           headers: {
-            Authorization: Bearer ${token},
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -377,7 +375,7 @@ export default function LenderDashboard() {
         throw new Error("Loan request acceptance failed!");
       }
 
-      // Update all states - following the same pattern as BorrowerDashboard
+      
       setBorrowerRequests(
         borrowerRequests.filter((req) => req.id !== requestId)
       );
@@ -416,14 +414,14 @@ export default function LenderDashboard() {
         throw new Error("Please login again - session expired");
       }
 
-      // Make the PUT request to mark the loan as paid
+    
       const response = await fetch(
-        http://localhost:8080/api/loan-offers/${loanId}/mark-paid,
+       " http://localhost:8080/api/loan-offers/${loanId}/mark-paid",
         {
           method: "PUT",
           headers: {
-            Authorization: Bearer ${token},
-            "Content-Type": "application/json", // Add content type header
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", 
           },
         }
       );
@@ -433,13 +431,13 @@ export default function LenderDashboard() {
         throw new Error(errorData.message || "Failed to process payment");
       }
 
-      // Show success message
+      
       setPopup({
         show: true,
         message: "Payment completed! ₹10 is deducted as transfer fee",
       });
 
-      // Remove the paid loan from pending payments after 3 seconds
+      
       setTimeout(() => {
         setPendingPayments(
           pendingPayments.filter((loan) => loan.id !== loanId)
@@ -462,16 +460,14 @@ export default function LenderDashboard() {
 
   return (
     <>
-      {/* Navbar */}
       <nav className="lender-navbar">
         <div className="navbar-title">Lender Dashboard</div>
-        {/* Removed username from navbar */}
+        
         <button className="navbar-logout-btn" onClick={handleLogout}>
           Logout
         </button>
       </nav>
       <div className="lender-dashboard-root" style={{ minHeight: "100vh" }}>
-        {/* Header */}
         <div className="dashboard-header-card">
           <div className="header-left">
             <img src={logo} alt="AarthaSathi Logo" className="lender-logo" />
@@ -540,7 +536,7 @@ export default function LenderDashboard() {
                               gap: 8,
                             }}
                           >
-                            {/* SVG Profile Icon */}
+                        
                             <svg
                               width="28"
                               height="28"
@@ -883,7 +879,7 @@ export default function LenderDashboard() {
             />
             <input
               type="number"
-              placeholder="Interest Rate (%)" // Updated from "Max Interest Rate (%)"
+              placeholder="Interest Rate (%)"
               value={newLoanForm.minInterest}
               onChange={(e) =>
                 setNewLoanForm({ ...newLoanForm, minInterest: e.target.value })
@@ -891,7 +887,7 @@ export default function LenderDashboard() {
             />
             <input
               type="text"
-              placeholder="Repayment Date (YYYY-MM-DD)" // Added format hint
+              placeholder="Repayment Date (YYYY-MM-DD)" 
               value={newLoanForm.repaymentDate}
               onChange={(e) =>
                 setNewLoanForm({
@@ -920,7 +916,7 @@ export default function LenderDashboard() {
             </button>
           </div>
         </div>
-        {/* Accept Offer Modal */}
+        
         {showAcceptModal && selectedOffer && (
           <div className="modal-overlay">
             <div className="modal-card">
@@ -983,13 +979,13 @@ export default function LenderDashboard() {
             </div>
           </div>
         )}
-        {/* Popup */}
+        
         {popup.show && (
           <div className="popup-overlay">
             <div className="popup-card">{popup.message}</div>
           </div>
         )}
-        {/* Red Flag Popup */}
+        
         {borrowerRedFlag && (
           <div className="popup-overlay">
             <div

@@ -469,7 +469,7 @@ body,
   color: #92400e;
 }
 
-/* Posted Loans Section */
+
 .posted-section {
   background: #fff;
   border-radius: 16px;
@@ -530,7 +530,7 @@ body,
   grid-column: 1 / -1;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 900px) {
   .posted-loans-grid {
     grid-template-columns: 1fr;
